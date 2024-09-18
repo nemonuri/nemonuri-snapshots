@@ -1,29 +1,30 @@
-﻿
-namespace Nemonuri.Snapshots.FastSerialization;
+﻿namespace Nemonuri.Snapshots.FastSerialization;
 
-public class FastSerializableObjectSnapshoter
+public class FastSerializableObjectSnapshotWriter
 {
     private readonly DirectoryCreatingEventKind _eventKind;
 
     private DirectoryInfo? _directoryInfo;
-    private DirectoryInfo DirectoryInfo => _directoryInfo ??= CreateDirectoryInfo();
+    private DirectoryInfo DirectoryInfo => _directoryInfo ??= CreateDirectoryIfNeeded();
 
-    public FastSerializableObjectSnapshoter():this(DirectoryCreatingEventKind.Default)
+    private int _fileIndex = -1;
+
+    public FastSerializableObjectSnapshotWriter():this(DirectoryCreatingEventKind.Default)
     {
     }
 
-    public FastSerializableObjectSnapshoter(DirectoryCreatingEventKind eventKind)
+    public FastSerializableObjectSnapshotWriter(DirectoryCreatingEventKind eventKind)
     {
         Guard.IsTrue(eventKind.IsValid());
         _eventKind = eventKind;
 
         if (eventKind == DirectoryCreatingEventKind.Constructed)
         {
-            _directoryInfo = CreateDirectoryInfo();
+            _directoryInfo = CreateDirectory();
         }
     }
 
-    private DirectoryInfo CreateDirectoryInfoIfNeeded()
+    private DirectoryInfo CreateDirectoryIfNeeded()
     {
         if 
         (
@@ -31,7 +32,7 @@ public class FastSerializableObjectSnapshoter
             _eventKind == DirectoryCreatingEventKind.Needed
         )
         {
-            return CreateDirectoryInfo();
+            return CreateDirectory();
         }
         else
         {
@@ -39,8 +40,19 @@ public class FastSerializableObjectSnapshoter
         }
     }
 
-    private DirectoryInfo CreateDirectoryInfo()
+    private DirectoryInfo CreateDirectory()
     {
-        throw new NotImplementedException();
+        string dirPath = Path.Combine(AppContext.BaseDirectory, "FastSerializableObjectSnapshot_" + DateTime.Now.ToString("yyyyMMdd_HHmmss"));
+        var result = new DirectoryInfo(dirPath);
+        result.Create();
+        return result;
+    }
+
+    public void WriteToFile(IFastSerializable fastSerializableObject)
+    {
+        int fileIndex = Interlocked.Increment(ref _fileIndex);
+        string filePath = Path.Combine(DirectoryInfo.FullName, fileIndex.ToString());
+        Serializer serializer = new (filePath, fastSerializableObject);
+        serializer.Dispose();
     }
 }
