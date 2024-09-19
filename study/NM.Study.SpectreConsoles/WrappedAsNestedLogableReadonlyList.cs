@@ -9,7 +9,9 @@ public readonly struct WrappedAsNestedLogableReadonlyList<T> : INestedLoggable
     {
         _innerValue = innerValue;
         _nestedLogableFacotry = nestedLogableFacotry;
-        _logNameAndDatas = InnerValue.Select(SelectLogNameAndData).ToArray();
+        _logNameAndDatas = InnerValue.Select(SelectLogNameAndData)
+            .Prepend(new LoggingNameAndData(Constant.GetTypeMethodName, typeof(T).FullName + "[]"))
+            .ToArray();
     }
 
     private readonly IReadOnlyList<T>? _innerValue;

@@ -12,8 +12,14 @@ public record Record1 : INestedLoggable
     private IReadOnlyList<LoggingNameAndData>? _loggingNameAndDatas;
     public IReadOnlyList<LoggingNameAndData> LoggingNameAndDatas => _loggingNameAndDatas ??=
         [
+            new (Constant.GetTypeMethodName, typeof(Record1).FullName),
             new (nameof(IntValue), IntValue.ToString()),
             new (nameof(StringValue), StringValue?.ToString()),
             new (nameof(Record2), Record2)
         ];
+}
+
+public static class Constant
+{
+    public const string GetTypeMethodName = "GetType()";
 }

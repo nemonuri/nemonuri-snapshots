@@ -9,6 +9,7 @@ public readonly struct WrappedAsNestedLogableVector2 : INestedLoggable
         InnerValue = innerValue;
         _logNameAndDatas =
         [
+            new (Constant.GetTypeMethodName, typeof(Vector2).ToString()),
             new (nameof(InnerValue.X), InnerValue.X.ToString()),
             new (nameof(InnerValue.Y), InnerValue.Y.ToString())
         ];
