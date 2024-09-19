@@ -19,7 +19,7 @@ internal class Program
         //---|
 
         //--- log ---
-        Table table = data1.ToTable().Title("0");
+        Table table = data1.ToTable().Title("0").HideHeaders();
         AnsiConsole.Write(table);
         //---|
     }
