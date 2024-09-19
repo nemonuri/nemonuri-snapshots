@@ -20,7 +20,7 @@ internal static class NestedLoggableExtensions
 
             if (nd.DataAsString != null)
             {
-                table.AddRow(nd.Name, nd.DataAsString);
+                table.AddRow(new Text(nd.Name), new Text(nd.DataAsString));
             }
             else if (nd.DataAsNestedLoggable != null)
             {

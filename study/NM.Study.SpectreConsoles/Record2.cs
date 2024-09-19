@@ -12,6 +12,6 @@ public record Record2 : INestedLoggable
     public IReadOnlyList<LoggingNameAndData> LoggingNameAndDatas => _logNameAndDatas ??= 
         [
             new (Constant.GetTypeMethodName, typeof(Record2).FullName),
-            new LoggingNameAndData(nameof(Vector2s), new WrappedAsNestedLogableReadonlyList<Vector2>(Vector2s))
+            new LoggingNameAndData(nameof(Vector2s), new WrappedAsNestedLogableReadonlyList<Vector2>(Vector2s, a => new WrappedAsNestedLogableVector2(a)))
         ];
 }
