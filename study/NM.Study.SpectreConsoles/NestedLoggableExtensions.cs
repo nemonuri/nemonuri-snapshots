@@ -5,7 +5,11 @@ namespace NM.Study.SpectreConsoles;
 
 internal static class NestedLoggableExtensions
 {
-    internal static Table ToTable(this INestedLoggable self)
+    internal static Table ToTable
+    (
+        this INestedLoggable self, 
+        HeaderMode headerMode = HeaderMode.Show
+    )
     {
         Guard.IsNotNull(self);
 
@@ -13,6 +17,11 @@ internal static class NestedLoggableExtensions
 
         table.AddColumn("Name");
         table.AddColumn("Value");
+
+        if (headerMode == HeaderMode.Hide)
+        {
+            table.HideHeaders();
+        }
 
         foreach (var nd in self.LoggingNameAndDatas ?? [])
         {
@@ -24,7 +33,11 @@ internal static class NestedLoggableExtensions
             }
             else if (nd.DataAsNestedLoggable != null)
             {
-                table.AddRow(new Text(nd.Name), nd.DataAsNestedLoggable.ToTable());
+                table.AddRow(new Text(nd.Name), 
+                    nd.DataAsNestedLoggable.ToTable
+                    (
+                        headerMode: headerMode
+                    ));
             }
             else
             {
@@ -34,4 +47,10 @@ internal static class NestedLoggableExtensions
 
         return table;
     }
+}
+
+internal enum HeaderMode
+{
+    Show = 0,
+    Hide = 1
 }
