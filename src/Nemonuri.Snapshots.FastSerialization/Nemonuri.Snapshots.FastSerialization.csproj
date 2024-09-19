@@ -5,8 +5,9 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <LangVersion>12</LangVersion>
+    <IsTrimmable>false</IsTrimmable>
 
-    <Version>0.0.100</Version>
+    <Version>0.0.101</Version>
   </PropertyGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
