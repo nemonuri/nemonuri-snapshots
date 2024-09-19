@@ -2,7 +2,7 @@ using System.Numerics;
 
 namespace NM.Study.SpectreConsoles;
 
-public readonly struct WrappedAsNestedLogableVector2 : INestedLogable
+public readonly struct WrappedAsNestedLogableVector2 : INestedLoggable
 {
     public WrappedAsNestedLogableVector2(Vector2 innerValue)
     {

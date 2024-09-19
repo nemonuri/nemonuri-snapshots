@@ -1,7 +1,7 @@
 
 namespace NM.Study.SpectreConsoles;
 
-public record Record1 : INestedLogable
+public record Record1 : INestedLoggable
 {
     public Record1() {}
 

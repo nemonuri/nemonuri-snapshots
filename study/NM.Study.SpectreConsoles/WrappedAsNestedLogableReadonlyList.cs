@@ -1,11 +1,11 @@
 namespace NM.Study.SpectreConsoles;
 
-public readonly struct WrappedAsNestedLogableReadonlyList<T> : INestedLogable
+public readonly struct WrappedAsNestedLogableReadonlyList<T> : INestedLoggable
 {
     public WrappedAsNestedLogableReadonlyList(IReadOnlyList<T>? innerValue) : this(innerValue, null)
     {}
 
-    public WrappedAsNestedLogableReadonlyList(IReadOnlyList<T>? innerValue, Func<T, INestedLogable>? nestedLogableFacotry)
+    public WrappedAsNestedLogableReadonlyList(IReadOnlyList<T>? innerValue, Func<T, INestedLoggable>? nestedLogableFacotry)
     {
         _innerValue = innerValue;
         _nestedLogableFacotry = nestedLogableFacotry;
@@ -15,7 +15,7 @@ public readonly struct WrappedAsNestedLogableReadonlyList<T> : INestedLogable
     private readonly IReadOnlyList<T>? _innerValue;
     public IReadOnlyList<T> InnerValue => _innerValue ?? [];
 
-    private readonly Func<T, INestedLogable>? _nestedLogableFacotry;
+    private readonly Func<T, INestedLoggable>? _nestedLogableFacotry;
 
     private readonly IReadOnlyList<LoggingNameAndData>? _logNameAndDatas;
     public IReadOnlyList<LoggingNameAndData> LoggingNameAndDatas => _logNameAndDatas ?? [];
@@ -28,7 +28,7 @@ public readonly struct WrappedAsNestedLogableReadonlyList<T> : INestedLogable
         {
             return new (logName, _nestedLogableFacotry.Invoke(element));
         }
-        else if (element is INestedLogable nestedLogableElement)
+        else if (element is INestedLoggable nestedLogableElement)
         {
             return new (logName, nestedLogableElement);
         }

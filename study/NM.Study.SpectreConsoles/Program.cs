@@ -18,17 +18,9 @@ internal class Program
         };
         //---|
 
-        Table table = new Table();
-
-        table.Title("0");
-
-        table.AddColumn("Name");
-        table.AddColumn("Value");
-
-
-
-        //table.AddRow(nameof(Record1.IntValue), )
-
+        //--- log ---
+        Table table = data1.ToTable().Title("0");
         AnsiConsole.Write(table);
+        //---|
     }
 }

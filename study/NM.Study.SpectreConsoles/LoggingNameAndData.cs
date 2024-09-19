@@ -5,19 +5,19 @@ public readonly struct LoggingNameAndData
     public LoggingNameAndData(string? name, string? dataAsString)
     {
         Name = name;
-        this.dataAsString = dataAsString;
-        dataAsNestedLogable = null;
+        DataAsString = dataAsString;
+        DataAsNestedLoggable = null;
     }
 
-    public LoggingNameAndData(string? logName, INestedLogable? dataAsNestedLogable)
+    public LoggingNameAndData(string? logName, INestedLoggable? dataAsNestedLoggable)
     {
         Name = logName;
-        dataAsString = null;
-        this.dataAsNestedLogable = dataAsNestedLogable;
+        DataAsString = null;
+        DataAsNestedLoggable = dataAsNestedLoggable;
     }
 
     public string? Name {get;}
-    public string? dataAsString {get;}
-    public INestedLogable? dataAsNestedLogable {get;}
+    public string? DataAsString {get;}
+    public INestedLoggable? DataAsNestedLoggable {get;}
 
 }

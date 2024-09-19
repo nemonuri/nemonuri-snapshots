@@ -1,6 +1,6 @@
 namespace NM.Study.SpectreConsoles;
 
-public interface INestedLogable
+public interface INestedLoggable
 {
     IReadOnlyList<LoggingNameAndData> LoggingNameAndDatas {get;}
 }
