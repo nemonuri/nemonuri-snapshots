@@ -69,7 +69,7 @@
     - Repository URL used to clone or retrieve source code.
     - Example: https://github.com/NuGet/NuGet.Client.git
     -->
-    <RepositoryUrl Condition="'$(RepositoryUrl)' == ''"></RepositoryUrl>
+    <RepositoryUrl Condition="'$(RepositoryUrl)' == ''">https://github.com/nemonuri/nemonuri-snapshots</RepositoryUrl>
 
     <!--
     - Repository type.
